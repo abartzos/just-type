@@ -4,49 +4,7 @@
 <head>
 	<link rel="shortcut icon" type="image/icon" href=favicon.ico />
 	<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-	<style>
-	.unselectable{
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-	}
-	textarea {
-		font-family:'Muli', sans-serif;
-		resize: none;
-	}
-	.title{
-		color: DarkGreen;
-	}
-	.fancybutton {
-	    padding: 10px 20px;
-	    font-size: 15px;
-	    text-align: center;
-	    cursor: pointer;
-	    outline: none;
-	    border: none;
-	    border-radius: 20px;
-	    box-shadow: 0 9px #999;
-	    width: 120px;
-	    color: white;
-	    background-color: DarkGreen;
-	}
-
-	.fancybutton:active {
-	    box-shadow: 0 5px #666;
-	    transform: translateY(4px);
-	}
-	.main{
-		margin:0 auto;
-		padding: 30px;
-		width:500px;
-		border:solid black 1px;
-		border-radius: 10%;
-		font-family:'Muli', sans-serif;
-	}
-	</style>
+	<link rel="stylesheet" type="text/css" href="style.css" />
 <title>Just Type!</title>
 </head>
 
@@ -64,75 +22,6 @@
 </div>
 
 	<script src='wordList.js'></script>
-	<script>
-		var mainRunning = false;
-		var refreshIntervalId = null;
-		function mainStarter(){
-			if (!mainRunning){
-				mainRunning = true;
-				main();
-			}
-			else {
-				try{
-					clearInterval(refreshIntervalId);
-					mainRunning = true;
-					main();
-				}
-				catch(err){
-					console.log(err);
-				}
-			}
-		}
-		function focusOnTextBox(){
-			document.getElementById('textarea').focus();
-		}
-		function main(){
-			  var sentenceLength = 10;
- 			  function createSentence(){
-				var resultString = '';
-				for (var i = 0; i < sentenceLength; i++){
-					wordIndex = Math.floor(Math.random() * 900);
-					resultString += wordList[wordIndex] + ' ';
-				}
-				var sliced = resultString.slice(0,-1) + '.';
-				return sliced;
-			}
-			document.getElementById('textarea').value = '';
-			document.getElementById('typedString').value = '';
-			var desiredString = createSentence();
-			document.getElementById('desiredString').innerHTML = desiredString;
-			var timer= -2
-			var time = document.getElementById('timer');
-			var textInput = document.getElementById('textarea').value;
-			var counter = 0;
-			function checkIfCorrect(){
-				if (counter%20==0){
-					timer++;
-					if (timer>-1){
-						time.innerHTML = 'Time elapsed: '+String(timer);
-					}
-				}
-				counter++;
-				// console.log(desiredString);
-				// console.log(document.getElementById('textarea').value);
-				textInput = document.getElementById('textarea').value;
-				typedLetters = textInput.length;
-				if (textInput == desiredString.slice(0,typedLetters)){
-					document.getElementById('typedString').innerHTML = textInput;
-				}
-				//console.log(textInput.slice(0,typedLetters));
-				if (desiredString == textInput){
-					clearInterval(refreshIntervalId);
-					time.innerHTML = 'Finished! Time: '+ String(timer) + 'sec';
-					time.innerHTML += '<br>WPM: ' + String(Math.floor((60*sentenceLength)/timer));
-					mainRunning = false;
-				}
-
-				document.getElementById('desiredString').innerHTML = desiredString;
-			}
-			refreshIntervalId = setInterval(checkIfCorrect, 50);
-
-		}
-	</script>
+	<script src='main.js'></script>
 </body>
 </html>
